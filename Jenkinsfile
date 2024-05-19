@@ -1,15 +1,26 @@
 pipeline {
-    agent any
+
+    agent any 
+
+    environment {
+        GIT_BRANCH = 'main'
+        GIT_CREDENTIALS = 'Github'
+        GIT_URL = 'https://github.com/Ramlu/mrdevops_java_app.git'
+    }
+
     stages {
-        stage('CleanWS') {
+
+        stage('Clean WS') {
             steps {
-                cleanWS()
+                cleanWs()
             }
         }
+
         stage('Checkout Git') {
             steps {
-                git branch: 'main', credentialsId: 'Github', url: 'https://github.com/Ramlu/mrdevops_java_app.git'
+                git branch: "${GIT_BRANCH}", credentialsId: "${GIT_CREDENTIALS}", url: "${GIT_URL}"
             }
         }
-}
+    }
+
 }
